@@ -10,6 +10,10 @@ class AppStrings{
   static const startTime ="Start :  ";
   static const endTime ="End :  ";
   static const reason ="Reason :  ";
+  static const overview ="OverView ";
+  static const leave ="Leave ";
+  static const request ="Requests ";
+  static const note ="Note :  ";
   static const typeOfLeaveRequest ="Type of Request :  ";
   static const save ="Save  ";
   static const back ="Back  ";

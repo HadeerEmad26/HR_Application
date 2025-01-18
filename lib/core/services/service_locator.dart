@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hr/core/database/sqf_helper/sqf_helper.dart';
 import 'package:hr/features/addRequest/data/repository/request_repo.dart';
+import 'package:hr/features/addRequest/presentation/leave_type_cubit/leave_type_cubit.dart';
 import 'package:hr/features/addRequest/presentation/request_Cubit/add_request_cubit.dart';
 import 'package:hr/features/home/presentation/home_cubit/home_cubit.dart';
 
@@ -20,7 +21,8 @@ void initServiceLocator(){
   sl.registerLazySingleton(()=> GlobalCubit());
   sl.registerLazySingleton(()=> LoginCubit(sl()));
   sl.registerLazySingleton(()=> HomeCubit());
-  sl.registerLazySingleton(()=> AddRequestCubit());
+  sl.registerLazySingleton(()=> LeaveTypeCubit(sl()));
+  sl.registerLazySingleton(()=> AddRequestCubit(sl()));
 
 
   //auth feature

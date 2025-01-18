@@ -4,7 +4,7 @@ import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/splash_screen.dart';
 import '../../features/auth/presentation/screens/welcome_screen.dart';
 import '../../features/addRequest/presentation/screens/add_request_screen.dart';
-import '../../features/home/presentation/screens/check_in_screen.dart';
+import '../../features/checkIn/presentation/screens/check_in_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 
 class Routes {

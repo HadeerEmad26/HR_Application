@@ -21,7 +21,8 @@ class SqfliteHelper {
         reason TEXT,
         date TEXT,
         endTime TEXT,
-        startTime TEXT)
+        startTime TEXT,
+        note TEXT)
       ''').then(
               (value) => print('DB created successfully'),
         );
@@ -33,12 +34,13 @@ class SqfliteHelper {
   //! insert
   Future<int> insertToDB({required AddRequestModel model}) async {
     return await db.rawInsert('''
-    INSERT INTO AddRequest(reason, date, endTime, startTime)
-    VALUES(?, ?, ?, ?)''', [
+    INSERT INTO AddRequest(reason, date, endTime, startTime, note)
+    VALUES(?, ?, ?, ?,?)''', [
       model.reason,
       model.date,
       model.endTime,
       model.startTime,
+      model.note
     ]);
   }
 

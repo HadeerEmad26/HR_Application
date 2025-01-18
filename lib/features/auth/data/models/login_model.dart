@@ -1,5 +1,5 @@
-
 import '../../../../core/database/api/end_points.dart';
+
 
 class LoginModel {
   final String message;
@@ -16,3 +16,4 @@ class LoginModel {
     );
   }
 }
+

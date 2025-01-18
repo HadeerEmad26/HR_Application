@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hr/core/database/sqf_helper/sqf_helper.dart';
 import 'package:hr/features/addRequest/presentation/request_Cubit/add_request_cubit.dart';
 import 'package:hr/features/auth/presentation/auth_cubit/login_cubit.dart';
 import 'package:hr/features/home/presentation/home_cubit/home_cubit.dart';
@@ -12,6 +13,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   initServiceLocator();
   await sl<CacheHelper>().init();
+  sl<SqfliteHelper>().intiDB();
 
   runApp(
       MultiBlocProvider(
@@ -26,6 +28,7 @@ void main() async{
         BlocProvider(
           create: (BuildContext context) => sl<HomeCubit>(),
         ),
+
         BlocProvider(
           create: (BuildContext context) => sl<AddRequestCubit>()..getAllRequests(),
         ),

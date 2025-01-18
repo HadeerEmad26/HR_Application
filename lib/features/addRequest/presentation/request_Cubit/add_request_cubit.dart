@@ -1,11 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hr/features/addRequest/data/model/type_of_request_model.dart';
+import 'package:hr/features/addRequest/data/model/add_request_model.dart';
 import 'package:hr/features/addRequest/data/repository/request_repo.dart';
 import 'package:intl/intl.dart';
 import '../../../../core/database/sqf_helper/sqf_helper.dart';
 import '../../../../core/services/service_locator.dart';
-import '../../data/model/add_request_model.dart';
 import 'add_request_state.dart';
 
 class AddRequestCubit extends Cubit<AddRequestState> {
@@ -18,37 +19,37 @@ class AddRequestCubit extends Cubit<AddRequestState> {
   String endTime = DateFormat('hh:mm a')
       .format(DateTime.now().add(const Duration(minutes: 45)));
   int currentIndex = 0;
+  TextEditingController noteController = TextEditingController();
 
-  TextEditingController reasonController = TextEditingController();
-
+  GlobalKey<FormState> addToRequestKey = GlobalKey<FormState>();
 
 //!___Date____
   DateTime todayDate = DateTime.now();
-  void onDaySelected(DateTime day, DateTime focusedDay){
+  void onDaySelected(DateTime day, DateTime focusedDay) {
     emit(OnDaySelectedState());
     todayDate = day;
   }
 
-  Future<Object>requestItems = RequestsRepository().typeRequest(
-      itemId: itemId,
-      itemName: itemName,
-  );
+  List<String> leaveTypeList = [
+    "Annual",
+    "Sick",
+    "Maternity",
+    "Mission",
+    "Permission"
+  ];
+  String selectedItem = "Sick";
 
-
-  // void changeItem(item) {
-  //   selectedRequestItem = item;
-  //   emit(SelectedRequestItemState());
-  // }
-
-
-
+  void changeItem(item) {
+    selectedItem = item;
+    emit(ChangeItemState());
+  }
 
   //
 //   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 //   //get Date From User
 
 //___start time___
-   late TimeOfDay schadualedTime;
+  late TimeOfDay schadualedTime;
   void getStartTime(context) async {
     emit(GetStartTimeLoadingState());
 
@@ -91,52 +92,55 @@ class AddRequestCubit extends Cubit<AddRequestState> {
     selectedDate = date;
 
     emit(GetSelectedDateSuccessState());
-    //getTasks();
   }
 
 
-
-List<AddRequestModel> requestsList = [];
-  void insertRequests(context) async {
-    emit(InsertRequestsLoadingState());
-
-    try {
-      await sl<SqfliteHelper>().insertToDB(
-        model: AddRequestModel(
-          date: BlocProvider.of<AddRequestCubit>(context).todayDate.toString().split(" ")[0],
-          reason: reasonController.text,
-          startTime: startTime,
-          endTime: endTime,
-        ),
-      );
-      reasonController.clear();
-      emit(InsertRequestsSuccessState());
-      getAllRequests();
-    } catch (e) {
-      emit(InsertRequestsErrorState());
-    }
+  void saveRequest() async {
+    emit(AddRequestLoadingState());
+    final result = await requestsRepository.addRequest(
+      selectedDate: todayDate,
+      startTime: startTime,
+      endTime: endTime,
+      reason: selectedItem,
+      note: noteController.text,
+    );
+    result.fold((l) => emit(AddRequestErrorState()),
+        (r) => emit(AddRequestSuccessState()));
   }
 
 
-
-
-
-//!get requests
   void getAllRequests() async {
-    emit(GetDateLoadingState());
-    await sl<SqfliteHelper>().getFromDB().then((value) {
-      requestsList = value
-          .map((e) => AddRequestModel.fromJson(e))
-          .toList()
-          .where(
-            (element) => element.date == DateFormat.yMd().format(selectedDate),
-      )
-          .toList();
-      emit(GetDateSuccessState());
-    }).catchError((e) {
-      print(e.toString());
-      emit(GetDateErrorState());
+    emit(GetRequestsLoadingState());
+    final result = await requestsRepository.getRequest();
+    result.fold((l) => emit(GetRequestsErrorState()), (r) {
+      requests = requests;
+      emit(GetRequestsSuccessState());
     });
   }
 
+
+  List<AddRequestModel> requests = [];
+
+  void insertRequests() async {
+    emit(InsertRequestsLoadingState());
+    try {
+      sl<SqfliteHelper>().insertToDB(
+          model: AddRequestModel(
+        date: selectedDate.toIso8601String(),
+        reason: selectedItem,
+        startTime: startTime,
+        endTime: endTime,
+        note: noteController.text,
+      ));
+      print(requests.length);
+      noteController.clear();
+      startTime = DateFormat("hh:mm:a").format(DateTime.now());
+
+      getAllRequests();
+      emit(InsertRequestsSuccessState());
+    } catch (e) {
+      log(e.toString());
+      emit(InsertRequestsErrorState());
+    }
+  }
 }

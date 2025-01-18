@@ -28,11 +28,6 @@ class CustomButton extends StatelessWidget {
           backgroundColor: AppColors.green
         ),
         onPressed: onPressed,
-        // style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-        //   backgroundColor: MaterialStateProperty.all(
-        //     background ?? AppColors.primary,
-        //   ),
-        // ),
         child: Text(
           text,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(

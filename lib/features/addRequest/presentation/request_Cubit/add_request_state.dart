@@ -2,6 +2,9 @@ sealed class AddRequestState {}
 
 final class AddRequestInitial extends AddRequestState {}
 
+final class ChangeItemState extends AddRequestState {}
+
+
 
 
 final class OnDaySelectedState extends AddRequestState {}
@@ -59,4 +62,10 @@ class GetRequestsLoadingState extends AddRequestState {}
 class GetRequestsSuccessState extends AddRequestState {}
 
 class GetRequestsErrorState extends AddRequestState {}
+
+class AddRequestLoadingState extends AddRequestState {}
+
+class AddRequestSuccessState extends AddRequestState {}
+
+class AddRequestErrorState extends AddRequestState {}
 
