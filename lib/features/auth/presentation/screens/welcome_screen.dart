@@ -42,7 +42,7 @@ class WelcomeScreen extends StatelessWidget {
           Center(
             child: TextButton(
                 onPressed: (){
-                  navigateReplacement(context: context, route: Routes.loginScreen);
+                  navigateReplacement(context: context, route: Routes.loginScreen, arguments: {});
                 },
               style: TextButton.styleFrom(backgroundColor: AppColors.green),
                 child: const Text(

@@ -29,8 +29,8 @@ class _SplashScreenState extends State<SplashScreen> {
       await sl<CacheHelper>().getData(
         key: ApiKeys.token,
       )==null?
-      navigateReplacement(context: context, route: Routes.welcomeScreen):
-      navigateReplacement(context: context, route: Routes.loginScreen);
+      navigateReplacement(context: context, route: Routes.welcomeScreen, arguments: {}):
+      navigateReplacement(context: context, route: Routes.loginScreen, arguments: {});
     });
   }
 

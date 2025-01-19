@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                 width: 273.w,
                 child: TextButton(
                   onPressed: (){
-                    navigateReplacement(context: context, route: Routes.addRequestScreen);
+                    navigateReplacement(context: context, route: Routes.addRequestScreen, arguments: {});
                   },
                   style: TextButton.styleFrom(backgroundColor: AppColors.green),
                   child: const Text(
@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                 width: 273.w,
                 child: TextButton(
                   onPressed: (){
-                    navigateReplacement(context: context, route: Routes.checkInScreen);
+                    navigateReplacement(context: context, route: Routes.checkInScreen, arguments: {});
                   },
                   style: TextButton.styleFrom(backgroundColor: AppColors.green),
                   child: const Text(

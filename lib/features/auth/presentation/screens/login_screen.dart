@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget {
                       message: AppStrings.loginSuccessfully,
                       state: ToastStates.success);
                   navigateReplacement(
-                      context: context, route: Routes.homeScreen);
+                      context: context, route: Routes.homeScreen, arguments: {});
                 }
                 if (state is LoginErrorState) {
                   showToast(message: state.message, state: ToastStates.error);
@@ -142,7 +142,7 @@ class LoginScreen extends StatelessWidget {
                                         .validate()) {
                                       BlocProvider.of<LoginCubit>(context)
                                           .login();
-                                      navigateReplacement(context: context, route: Routes.homeScreen);
+                                      navigateReplacement(context: context, route: Routes.homeScreen, arguments: {});
                                     }
                                   },
                                   background: AppColors.green,

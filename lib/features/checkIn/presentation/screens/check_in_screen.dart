@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hr/core/routes/app_routes.dart';
 import 'package:hr/core/utils/app_colors.dart';
 import 'package:hr/core/utils/app_strings.dart';
+import 'package:hr/core/utils/commens.dart';
 import 'package:hr/features/auth/data/reposetry/auth_repo.dart';
 import 'package:hr/features/auth/presentation/auth_cubit/login_cubit.dart';
 import 'package:hr/features/checkIn/presentation/components/date_time_check_in_component.dart';
@@ -41,12 +43,18 @@ class CheckInScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(18.0),
-                  child: Text(
-                      AppStrings.back,
-                    style: TextStyle(
-                      color: AppColors.green,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold
+                  child: InkWell(
+                    onTap: () {
+                      navigate(
+                          context: context, route: Routes.homeScreen,);
+                    },
+                    child: Text(
+                        AppStrings.back,
+                      style: TextStyle(
+                        color: AppColors.green,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold
+                      ),
                     ),
                   ),
                 ),

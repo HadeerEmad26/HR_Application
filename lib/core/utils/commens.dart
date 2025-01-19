@@ -18,7 +18,7 @@ void navigate({
 void navigateReplacement({
   required BuildContext context,
   required String route,
-  dynamic arg,
+  dynamic arg, required Map arguments,
 }) {
   Navigator.pushReplacementNamed(
     context,

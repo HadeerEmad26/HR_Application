@@ -35,7 +35,7 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const HomeScreen());
 
         case Routes.addRequestScreen:
-        return MaterialPageRoute(builder: (_) => const AddRequestScreen());
+        return MaterialPageRoute(builder: (_) =>  AddRequestScreen());
 
 
         case Routes.checkInScreen:
@@ -43,7 +43,7 @@ class AppRoutes {
 
 
         case Routes.requestComponentScreen:
-        return MaterialPageRoute(builder: (_) => const RequestComponent());
+        return MaterialPageRoute(builder: (_) => RequestComponentScreen ());
 
 
 

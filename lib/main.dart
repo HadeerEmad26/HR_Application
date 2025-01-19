@@ -30,7 +30,7 @@ void main() async{
         ),
 
         BlocProvider(
-          create: (BuildContext context) => sl<AddRequestCubit>()..getAllRequests(),
+          create: (BuildContext context) => sl<AddRequestCubit>()..insertRequests(),
         ),
 
       ],
